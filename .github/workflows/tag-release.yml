@@ -1,0 +1,70 @@
+name: Tag Release on Fabric Update
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  tag-release:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.title, 'update fabric to')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Determine new version
+        id: version
+        run: |
+          # Get current tag
+          CURRENT_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          echo "Current tag: $CURRENT_TAG"
+          
+          # Remove 'v' prefix and split version
+          VERSION=${CURRENT_TAG#v}
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          
+          # Increment minor version
+          NEW_MINOR=$((MINOR + 1))
+          NEW_TAG="v${MAJOR}.${NEW_MINOR}.0"
+          
+          echo "New tag: $NEW_TAG"
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        run: |
+          NEW_TAG="${{ steps.version.outputs.new_tag }}"
+          
+          # Extract fabric version from PR title
+          FABRIC_VERSION=$(echo "${{ github.event.pull_request.title }}" | grep -oP '(?<=update fabric to )[0-9.]+')
+          
+          # Create annotated tag
+          git tag -a "$NEW_TAG" -m "Release $NEW_TAG - Update fabric to $FABRIC_VERSION"
+          
+          # Push tag
+          git push origin "$NEW_TAG"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.new_tag }}
+          name: ${{ steps.version.outputs.new_tag }}
+          body: |
+            ## What's Changed
+            
+            - Updated danielmiessler/fabric to version ${{ github.event.pull_request.title }}
+            
+            **Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.version.outputs.current_tag }}...${{ steps.version.outputs.new_tag }}
+          draft: false
+          prerelease: false
