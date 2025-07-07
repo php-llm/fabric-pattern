@@ -1,42 +1,42 @@
 {
-    "name": "php-llm/fabric-pattern",
-    "type": "library",
-    "description": "Slim PHP wrapper for Daniel Miessler's fabric pattern",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Christopher Hertel",
-            "email": "mail@christopher-hertel.de"
+  "name": "php-llm/fabric-pattern",
+  "type": "library",
+  "description": "Slim PHP wrapper for Daniel Miessler's fabric pattern",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christopher Hertel",
+      "email": "mail@christopher-hertel.de"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "danielmiessler/fabric": "^1.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhpLlm\\FabricPattern\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhpLlm\\FabricPattern\\Tests\\": "tests/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "danielmiessler/fabric",
+        "version": "v1.4.237",
+        "dist": {
+          "url": "https://github.com/danielmiessler/fabric/archive/refs/tags/v1.4.237.zip",
+          "type": "zip"
         }
-    ],
-    "require": {
-        "php": ">=8.2",
-        "danielmiessler/fabric": "^1.4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "PhpLlm\\FabricPattern\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "PhpLlm\\FabricPattern\\Tests\\": "tests/"
-        }
-    },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "danielmiessler/fabric",
-                "version": "1.4.0",
-                "dist": {
-                    "url": "https://github.com/danielmiessler/fabric/archive/refs/tags/1.4.0.zip",
-                    "type": "zip"
-                }
-            }
-        }
-    ]
+      }
+    }
+  ]
 }
