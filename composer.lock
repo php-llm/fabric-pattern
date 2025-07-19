@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d39e84bf5503488aa06771cecb16432",
+    "content-hash": "0a5fec5633da35fca16155df566a8391",
     "packages": [
         {
             "name": "danielmiessler/fabric",
-            "version": "v1.4.258",
+            "version": "v1.4.260",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/danielmiessler/fabric/archive/refs/tags/v1.4.258.zip"
+                "url": "https://github.com/danielmiessler/fabric/archive/refs/tags/v1.4.260.zip"
             },
             "type": "library"
         }
