@@ -31,9 +31,9 @@
       "type": "package",
       "package": {
         "name": "danielmiessler/fabric",
-        "version": "v1.4.266",
+        "version": "v1.4.269",
         "dist": {
-          "url": "https://github.com/danielmiessler/fabric/archive/refs/tags/v1.4.266.zip",
+          "url": "https://github.com/danielmiessler/fabric/archive/refs/tags/v1.4.269.zip",
           "type": "zip"
         }
       }
